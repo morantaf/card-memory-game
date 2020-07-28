@@ -29,7 +29,7 @@ const StyledLi = styled.li`
 `;
 
 export default function Grid() {
-  const blabla = [
+  const logoArray = [
     apex,
     assasin,
     warfare,
@@ -48,11 +48,32 @@ export default function Grid() {
     gta,
   ];
 
+  function shuffle(array) {
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle…
+    while (currentIndex) {
+      // Pick a remaining element…
+      randomIndex = Math.floor(Math.random() * currentIndex--);
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  const shuffledArray = shuffle(logoArray);
+
   return (
     <Container>
-      {blabla.map((bla) => (
+      {shuffledArray.map((logo, index) => (
         <StyledLi>
-          <Card image={bla} />
+          <Card key={index} image={logo} />
         </StyledLi>
       ))}
     </Container>
