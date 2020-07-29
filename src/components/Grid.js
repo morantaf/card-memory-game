@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import apex from "../images/icons8-apex-legends-100.png";
 import assassin from "../images/icons8-assassins-creed-100.png";
 import warfare from "../images/icons8-call-of-duty-modern-warfare-100.png";
@@ -41,82 +41,98 @@ export default function Grid() {
     {
       name: "apex",
       imgUrl: apex,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "assassin",
       imgUrl: assassin,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "warfare",
       imgUrl: warfare,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "warzone",
       imgUrl: warzone,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "counter",
       imgUrl: counterStrike,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "final",
       imgUrl: finalFantasy,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "fortnite",
       imgUrl: fortnite,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "gta",
       imgUrl: gta,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "apex",
       imgUrl: apex,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "assassin",
       imgUrl: assassin,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "warfare",
       imgUrl: warfare,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "warzone",
       imgUrl: warzone,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "counter",
       imgUrl: counterStrike,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "final",
       imgUrl: finalFantasy,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "fortnite",
       imgUrl: fortnite,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
     {
       name: "gta",
       imgUrl: gta,
-      hidden: true,
+      isFlipped: false,
+      isMatched: false,
     },
   ];
 
@@ -140,13 +156,48 @@ export default function Grid() {
 
   const [displayedCards, setDisplayedCards] = useState(shuffledCardsList);
 
+  const [allFlippedCards, setAllFlippedCards] = useState([]);
+
   const showCard = (indexOfClickedCard) => {
+    const flippedCard = displayedCards.filter(
+      (card, index) => index === indexOfClickedCard
+    );
+
+    setAllFlippedCards([...allFlippedCards, flippedCard]);
+
     setDisplayedCards(
       displayedCards.map((card, index) =>
-        index === indexOfClickedCard ? { ...card, hidden: !card.hidden } : card
+        index === indexOfClickedCard
+          ? { ...card, isFlipped: !card.isFlipped }
+          : card
       )
     );
   };
+
+  const checkFlippedCards = (card1, card2) => {
+    if (card1.name === card2.name) {
+      setDisplayedCards(
+        displayedCards.map((card) =>
+          card.name === card1.name
+            ? {
+                ...card,
+                isMatched: true,
+                isFlipped: false,
+              }
+            : card
+        )
+      );
+      setAllFlippedCards([]);
+    }
+  };
+
+  console.log(displayedCards);
+
+  useEffect(() => {
+    if (allFlippedCards.length === 2) {
+      checkFlippedCards(allFlippedCards[0], allFlippedCards[1]);
+    }
+  }, [allFlippedCards]);
 
   return (
     <Container>
@@ -154,8 +205,9 @@ export default function Grid() {
         <StyledList>
           <Card
             key={index}
+            name={card.name}
             image={card.imgUrl}
-            hidden={card.hidden}
+            isFlipped={card.isFlipped}
             index={index}
             showCard={showCard}
           />

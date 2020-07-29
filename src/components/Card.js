@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Image = styled.div`
@@ -22,15 +22,15 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Card({ image, hidden, index, showCard }) {
+export default function Card({ image, isFlipped, index, showCard, name }) {
   return (
     <Container>
-      {hidden ? (
-        <Image className="faceDown" onClick={() => showCard(index)} />
-      ) : (
+      {isFlipped ? (
         <Image className="faceUp">
-          <img src={image} />
+          <img alt={`${name}-${index}`} src={image} />
         </Image>
+      ) : (
+        <Image className="faceDown" onClick={() => showCard(index)} />
       )}
     </Container>
   );
