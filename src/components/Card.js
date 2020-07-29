@@ -22,13 +22,11 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Card({ image }) {
-  const [hidden, setHidden] = useState(true);
-
+export default function Card({ image, hidden, index, showCard }) {
   return (
     <Container>
       {hidden ? (
-        <Image className="faceDown" onClick={() => setHidden(!hidden)} />
+        <Image className="faceDown" onClick={() => showCard(index)} />
       ) : (
         <Image className="faceUp">
           <img src={image} />
