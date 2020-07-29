@@ -163,7 +163,7 @@ export default function Grid() {
       (card, index) => index === indexOfClickedCard
     );
 
-    setAllFlippedCards([...allFlippedCards, flippedCard]);
+    setAllFlippedCards([...allFlippedCards, flippedCard[0]]);
 
     setDisplayedCards(
       displayedCards.map((card, index) =>
@@ -174,21 +174,30 @@ export default function Grid() {
     );
   };
 
-  const checkFlippedCards = (card1, card2) => {
-    if (card1.name === card2.name) {
+  const checkFlippedCards = (cardOne, cardTwo) => {
+    if (cardOne.name === cardTwo.name) {
       setDisplayedCards(
-        displayedCards.map((card) =>
-          card.name === card1.name
+        displayedCards.map((card) => {
+          return card.name === cardOne.name
             ? {
                 ...card,
                 isMatched: true,
                 isFlipped: false,
               }
-            : card
-        )
+            : card;
+        })
       );
-      setAllFlippedCards([]);
+    } else {
+      console.log("failed");
+      setTimeout(() => {
+        setDisplayedCards(
+          displayedCards.map((card) =>
+            card.isFlipped ? { ...card, isFlipped: false } : card
+          )
+        );
+      }, 1000);
     }
+    setAllFlippedCards([]);
   };
 
   console.log(displayedCards);
@@ -208,6 +217,7 @@ export default function Grid() {
             name={card.name}
             image={card.imgUrl}
             isFlipped={card.isFlipped}
+            isMatched={card.isMatched}
             index={index}
             showCard={showCard}
           />

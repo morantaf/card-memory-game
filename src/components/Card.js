@@ -22,10 +22,17 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Card({ image, isFlipped, index, showCard, name }) {
+export default function Card({
+  image,
+  isFlipped,
+  index,
+  showCard,
+  name,
+  isMatched,
+}) {
   return (
     <Container>
-      {isFlipped ? (
+      {isFlipped || isMatched ? (
         <Image className="faceUp">
           <img alt={`${name}-${index}`} src={image} />
         </Image>
