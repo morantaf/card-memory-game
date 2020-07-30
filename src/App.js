@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "./components/Grid";
 import Stats from "./components/Stats";
 import styled from "styled-components";
+import Popup from "./components/Popup";
 
 const Title = styled.h1`
   margin: auto;
@@ -12,9 +13,22 @@ const Title = styled.h1`
 function App() {
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
   const [wrongAttempts, setWrongAttempts] = useState(0);
+  const [interv, setInterv] = useState();
+  const [gameWon, setGameWon] = useState(false);
+  const [gridKey, setGridKey] = useState(0);
 
   let updatedSeconds = time.seconds,
     updatedMinutes = time.minutes;
+
+  const resetGame = async () => {
+    await setTime({ minutes: 0, seconds: 0 });
+    updatedSeconds = 0;
+    updatedMinutes = 0;
+    setGameWon(false);
+    setWrongAttempts(0);
+    setGridKey(gridKey + 1);
+    await start();
+  };
 
   const chrono = () => {
     if (updatedSeconds === 60) {
@@ -26,16 +40,36 @@ function App() {
     return setTime({ minutes: updatedMinutes, seconds: updatedSeconds });
   };
 
-  useEffect(() => {
+  const start = () => {
     chrono();
-    setInterval(chrono, 1000);
+    setInterv(setInterval(chrono, 1000));
+  };
+
+  useEffect(() => {
+    start();
   }, []);
+
+  useEffect(() => {
+    clearInterval(interv);
+  }, [gameWon]);
 
   return (
     <div className="App">
+      {gameWon ? (
+        <Popup
+          wrongAttempts={wrongAttempts}
+          time={time}
+          resetGame={resetGame}
+        />
+      ) : null}
       <Title>Card Memory Game</Title>
       <Stats wrongAttempts={wrongAttempts} time={time} />
-      <Grid setWrongAttempts={setWrongAttempts} wrongAttempts={wrongAttempts} />
+      <Grid
+        key={gridKey}
+        setWrongAttempts={setWrongAttempts}
+        wrongAttempts={wrongAttempts}
+        setGameWon={setGameWon}
+      />
     </div>
   );
 }
