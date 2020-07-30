@@ -12,7 +12,7 @@ export default function Stats({ time, wrongAttempts }) {
   return (
     <Container>
       <p>
-        <b>Timer</b> : {time.minutes >= 10 ? time.minutes : "0" + time.minutes}:{" "}
+        <b>Timer</b> : {time.minutes >= 10 ? time.minutes : "0" + time.minutes}:
         {time.seconds >= 10 ? time.seconds : "0" + time.seconds}
       </p>
       <p>
