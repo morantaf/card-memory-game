@@ -16,18 +16,12 @@ const Container = styled.ul`
   height: 650px;
   display: flex;
   flex-wrap: wrap;
-  background-color: #ffffff;
   list-style: none;
   padding: 32px;
   justify-content: space-between;
   border-radius: 5%;
-  background: rgb(2, 0, 36);
-  background: radial-gradient(
-    circle,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(24, 141, 208, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
-  );
+  background: #55b9f3;
+  box-shadow: 3px 15px 15px 2px rgba(0, 0, 0, 0.15);
 `;
 
 const StyledList = styled.li`
@@ -36,106 +30,106 @@ const StyledList = styled.li`
   padding: 3%;
 `;
 
-export default function Grid() {
-  const cardsList = [
-    {
-      name: "apex",
-      imgUrl: apex,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "assassin",
-      imgUrl: assassin,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "warfare",
-      imgUrl: warfare,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "warzone",
-      imgUrl: warzone,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "counter",
-      imgUrl: counterStrike,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "final",
-      imgUrl: finalFantasy,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "fortnite",
-      imgUrl: fortnite,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "gta",
-      imgUrl: gta,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "apex",
-      imgUrl: apex,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "assassin",
-      imgUrl: assassin,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "warfare",
-      imgUrl: warfare,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "warzone",
-      imgUrl: warzone,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "counter",
-      imgUrl: counterStrike,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "final",
-      imgUrl: finalFantasy,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "fortnite",
-      imgUrl: fortnite,
-      isFlipped: false,
-      isMatched: false,
-    },
-    {
-      name: "gta",
-      imgUrl: gta,
-      isFlipped: false,
-      isMatched: false,
-    },
-  ];
+const cardsList = [
+  {
+    name: "apex",
+    imgUrl: apex,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "assassin",
+    imgUrl: assassin,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "warfare",
+    imgUrl: warfare,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "warzone",
+    imgUrl: warzone,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "counter",
+    imgUrl: counterStrike,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "final",
+    imgUrl: finalFantasy,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "fortnite",
+    imgUrl: fortnite,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "gta",
+    imgUrl: gta,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "apex",
+    imgUrl: apex,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "assassin",
+    imgUrl: assassin,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "warfare",
+    imgUrl: warfare,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "warzone",
+    imgUrl: warzone,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "counter",
+    imgUrl: counterStrike,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "final",
+    imgUrl: finalFantasy,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "fortnite",
+    imgUrl: fortnite,
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    name: "gta",
+    imgUrl: gta,
+    isFlipped: false,
+    isMatched: false,
+  },
+];
 
+export default function Grid({ setWrongAttempts, wrongAttempts }) {
   function shuffle(array) {
     let currentIndex = array.length,
       temporaryValue,
@@ -159,19 +153,21 @@ export default function Grid() {
   const [allFlippedCards, setAllFlippedCards] = useState([]);
 
   const showCard = (indexOfClickedCard) => {
-    const flippedCard = displayedCards.filter(
-      (card, index) => index === indexOfClickedCard
-    );
+    if (allFlippedCards.length <= 1) {
+      const flippedCard = displayedCards.filter(
+        (card, index) => index === indexOfClickedCard
+      );
 
-    setAllFlippedCards([...allFlippedCards, flippedCard[0]]);
+      setAllFlippedCards([...allFlippedCards, flippedCard[0]]);
 
-    setDisplayedCards(
-      displayedCards.map((card, index) =>
-        index === indexOfClickedCard
-          ? { ...card, isFlipped: !card.isFlipped }
-          : card
-      )
-    );
+      setDisplayedCards(
+        displayedCards.map((card, index) =>
+          index === indexOfClickedCard
+            ? { ...card, isFlipped: !card.isFlipped }
+            : card
+        )
+      );
+    }
   };
 
   const checkFlippedCards = (cardOne, cardTwo) => {
@@ -188,23 +184,30 @@ export default function Grid() {
         })
       );
     } else {
-      console.log("failed");
-      setTimeout(() => {
-        setDisplayedCards(
-          displayedCards.map((card) =>
-            card.isFlipped ? { ...card, isFlipped: false } : card
-          )
-        );
-      }, 1000);
+      setWrongAttempts(wrongAttempts + 1);
+      setDisplayedCards(
+        displayedCards.map((card) =>
+          card.isFlipped ? { ...card, isFlipped: false } : card
+        )
+      );
     }
     setAllFlippedCards([]);
   };
 
-  console.log(displayedCards);
+  useEffect(() => {
+    const cardsInGame = displayedCards.filter(
+      (card) => card.isMatched !== true
+    );
+    if (cardsInGame.length === 0) {
+      return <Card />;
+    }
+  }, [displayedCards]);
 
   useEffect(() => {
     if (allFlippedCards.length === 2) {
-      checkFlippedCards(allFlippedCards[0], allFlippedCards[1]);
+      setTimeout(() => {
+        checkFlippedCards(allFlippedCards[0], allFlippedCards[1]);
+      }, 500);
     }
   }, [allFlippedCards]);
 
