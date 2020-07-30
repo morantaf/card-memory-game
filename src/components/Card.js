@@ -20,6 +20,8 @@ const Image = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
+
+  box-shadow: 3px 15px 15px 2px rgba(0, 0, 0, 0.5);
 `;
 
 export default function Card({
