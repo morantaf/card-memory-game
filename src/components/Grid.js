@@ -129,7 +129,7 @@ const cardsList = [
   },
 ];
 
-export default function Grid({ setWrongAttempts, wrongAttempts }) {
+export default function Grid({ setWrongAttempts, wrongAttempts, setGameWon }) {
   function shuffle(array) {
     let currentIndex = array.length,
       temporaryValue,
@@ -199,7 +199,7 @@ export default function Grid({ setWrongAttempts, wrongAttempts }) {
       (card) => card.isMatched !== true
     );
     if (cardsInGame.length === 0) {
-      return <Card />;
+      setGameWon(true);
     }
   }, [displayedCards]);
 
