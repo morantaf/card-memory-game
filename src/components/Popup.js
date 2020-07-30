@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Blabla = styled.div`
+const PositionSetter = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
@@ -16,13 +16,14 @@ const Blabla = styled.div`
 const Container = styled.div`
   border: solid 1px;
   border-radius: 5px;
-  width: 670px;
+  width: 650px;
   position: absolute;
   left: 25%;
   right: 25%;
   top: 8%;
   margin: auto;
   background-color: white;
+  padding: 1%;
 `;
 
 const StyledText = styled.h1`
@@ -47,21 +48,21 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function Popup({ wrongAttempts, time }) {
+export default function Popup({ wrongAttempts, time, resetGame }) {
   return (
-    <Blabla>
+    <PositionSetter>
       <Container>
         <StyledText>
           {" "}
           <i>
             Congratulation ! You won in{" "}
             {time.minutes >= 10 ? time.minutes : "0" + time.minutes}:
-            {time.seconds >= 10 ? time.seconds : "0" + time.seconds} with only{" "}
+            {time.seconds >= 10 ? time.seconds : "0" + time.seconds} with{" "}
             {wrongAttempts} wrong attempts {":)"}
           </i>
         </StyledText>
-        <StyledButton>Retry</StyledButton>
+        <StyledButton onClick={resetGame}>Retry</StyledButton>
       </Container>
-    </Blabla>
+    </PositionSetter>
   );
 }
