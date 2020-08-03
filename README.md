@@ -8,3 +8,5 @@ When the User clicks on the 2nd card:
 - If there is a match, the 2 cards will be eliminated from the game (either hide/remove them or leave them in the visible state)
 - If there isn't a match, the 2 cards will flip back to their original state (hidden state)
 - When all the matches have been found, the User can see a dialog box showing a Congratulations message with a counter displaying the time it took to finish the game
+
+### See the [Typescript version](https://github.com/morantaf/card-memory-game-typescript)
