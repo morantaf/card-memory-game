@@ -3,6 +3,7 @@ import Grid from "./components/Grid";
 import Stats from "./components/Stats";
 import styled from "styled-components";
 import Popup from "./components/Popup";
+import Footer from "./components/Footer";
 
 const Title = styled.h1`
   margin: auto;
@@ -70,6 +71,7 @@ function App() {
         wrongAttempts={wrongAttempts}
         setGameWon={setGameWon}
       />
+      <Footer />
     </div>
   );
 }
